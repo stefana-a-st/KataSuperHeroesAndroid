@@ -20,22 +20,24 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.karumi.katasuperheroes.R;
 import com.karumi.katasuperheroes.SuperHeroesApplication;
 import com.karumi.katasuperheroes.model.SuperHero;
 import com.karumi.katasuperheroes.ui.presenter.SuperHeroesPresenter;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity implements SuperHeroesPresenter.View {
+public class SuperHeroesActivity extends BaseActivity implements SuperHeroesPresenter.View {
 
   @Inject SuperHeroesPresenter presenter;
-
-  private SuperHeroesAdapter adapter;
-
   @Bind(R.id.tv_empty_case) View emptyCaseView;
   @Bind(R.id.recycler_view) RecyclerView recyclerView;
+  private SuperHeroesAdapter adapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

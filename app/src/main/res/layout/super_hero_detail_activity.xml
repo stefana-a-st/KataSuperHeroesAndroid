@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.karumi.katasuperheroes.ui.view.MainActivity"
+    tools:context=".ui.view.SuperHeroesActivity"
     >
 
 
@@ -28,7 +28,7 @@
       android:id="@+id/recycler_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:context="com.karumi.katasuperheroes.ui.view.MainActivity"
+      tools:context=".ui.view.SuperHeroesActivity"
       tools:showIn="@layout/main_activity"
       >
 
@@ -95,10 +95,10 @@
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        style="?android:attr/progressBarStyleLarge"
         />
 
     <TextView
