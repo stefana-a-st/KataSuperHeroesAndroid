@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 Karumi.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,49 +13,38 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.karumi.katasuperheroes.ui.view.MainActivity"
-    >
+    android:background="?attr/colorPrimary"
+    android:orientation="vertical">
 
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="?attr/colorPrimary"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      app:popupTheme="@style/AppTheme.PopupOverlay"
-      />
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="120dp"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress" />
 
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/recycler_view"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@id/toolbar"
-      tools:context="com.karumi.katasuperheroes.ui.view.MainActivity"
-      tools:showIn="@layout/main_activity"
-      />
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword" />
 
-  <android.support.v4.widget.ContentLoadingProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
-      style="?android:attr/progressBarStyleLarge"
-      />
+    <Button
+        android:id="@+id/action_login"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/action_login" />
 
-  <TextView
-      android:id="@+id/tv_empty_case"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="¯\\_(ツ)_/¯"
-      android:layout_centerInParent="true"
-      android:textColor="@android:color/white"
-      android:visibility="gone"
-      />
-
-</RelativeLayout>
+</LinearLayout>
