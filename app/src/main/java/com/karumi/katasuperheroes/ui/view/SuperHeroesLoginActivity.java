@@ -17,6 +17,10 @@
 package com.karumi.katasuperheroes.ui.view;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.karumi.katasuperheroes.R;
 import com.karumi.katasuperheroes.SuperHeroesApplication;
@@ -24,14 +28,22 @@ import com.karumi.katasuperheroes.ui.presenter.SuperHeroLoginPresenter;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
+
 public class SuperHeroesLoginActivity extends BaseActivity implements SuperHeroLoginPresenter.View {
 
     @Inject
     SuperHeroLoginPresenter presenter;
+    @Bind(R.id.login_email)
+    EditText emailView;
+    @Bind(R.id.login_password)
+    EditText passwordView;
+    @Bind(R.id.action_login)
+    Button loginAction;
 
     @Override
     public int getLayoutId() {
-        return R.layout.login_activity;
+        return R.layout.super_heroes_login_activity;
     }
 
     @Override
@@ -39,11 +51,8 @@ public class SuperHeroesLoginActivity extends BaseActivity implements SuperHeroL
         super.onCreate(savedInstanceState);
         initializeDagger();
         initializePresenter();
+        bindListener();
         presenter.initialize();
-    }
-
-    private void initializePresenter() {
-        presenter.setView(this);
     }
 
     private void initializeDagger() {
@@ -51,13 +60,26 @@ public class SuperHeroesLoginActivity extends BaseActivity implements SuperHeroL
         app.getMainComponent().inject(this);
     }
 
+    private void initializePresenter() {
+        presenter.setView(this);
+    }
+
+    private void bindListener() {
+        loginAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.login(emailView.getText().toString(), passwordView.getText().toString());
+            }
+        });
+    }
+
     @Override
     public void showWrongCredentials() {
-
+        Snackbar.make(loginAction, "Wrong credentials", Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void openSuperHeroesScreen() {
-
+        SuperHeroesActivity.open(this);
     }
 }
