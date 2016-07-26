@@ -33,8 +33,8 @@ import com.karumi.katasuperheroes.idlingresource.RecyclerViewWithContentIdlingRe
 import com.karumi.katasuperheroes.model.SuperHero;
 import com.karumi.katasuperheroes.model.SuperHeroesRepository;
 import com.karumi.katasuperheroes.recyclerview.RecyclerViewInteraction;
-import com.karumi.katasuperheroes.ui.view.MainActivity;
 import com.karumi.katasuperheroes.ui.view.SuperHeroDetailActivity;
+import com.karumi.katasuperheroes.ui.view.SuperHeroesActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -67,7 +67,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class MainActivityTest {
+public class SuperHeroesActivityTest {
 
     private static final int ANY_NUMBER_OF_SUPER_HEROES = 10;
 
@@ -102,8 +102,8 @@ public class MainActivityTest {
     }
 
     @Rule
-    public IntentsTestRule<MainActivity> activityRule =
-            new IntentsTestRule<>(MainActivity.class, true, false);
+    public IntentsTestRule<SuperHeroesActivity> activityRule =
+            new IntentsTestRule<>(SuperHeroesActivity.class, true, false);
 
     @Mock
     SuperHeroesRepository repository;
@@ -240,7 +240,7 @@ public class MainActivityTest {
         when(repository.getAll()).thenReturn(Collections.<SuperHero>emptyList());
     }
 
-    private MainActivity startActivity() {
+    private SuperHeroesActivity startActivity() {
         return activityRule.launchActivity(null);
     }
 }

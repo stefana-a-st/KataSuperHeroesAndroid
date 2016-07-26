@@ -16,26 +16,35 @@
 
 package com.karumi.katasuperheroes.ui.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.karumi.katasuperheroes.R;
 import com.karumi.katasuperheroes.SuperHeroesApplication;
 import com.karumi.katasuperheroes.model.SuperHero;
 import com.karumi.katasuperheroes.ui.presenter.SuperHeroesPresenter;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity implements SuperHeroesPresenter.View {
+public class SuperHeroesActivity extends BaseActivity implements SuperHeroesPresenter.View {
 
   @Inject SuperHeroesPresenter presenter;
-
-  private SuperHeroesAdapter adapter;
-
   @Bind(R.id.tv_empty_case) View emptyCaseView;
   @Bind(R.id.recycler_view) RecyclerView recyclerView;
+  private SuperHeroesAdapter adapter;
+
+  public static void open(Context context) {
+    Intent intent = new Intent(context, SuperHeroesActivity.class);
+    context.startActivity(intent);
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -47,7 +56,7 @@ public class MainActivity extends BaseActivity implements SuperHeroesPresenter.V
   }
 
   @Override public int getLayoutId() {
-    return R.layout.main_activity;
+    return R.layout.super_heroes_activity;
   }
 
   @Override public void showSuperHeroes(List<SuperHero> superHeroes) {
