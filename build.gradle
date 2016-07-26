@@ -1,57 +1,57 @@
 buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:2.1.0'
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
-  }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
+    }
 }
 
 allprojects {
-  repositories {
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-  }
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
 
-  apply plugin: 'checkstyle'
+    apply plugin: 'checkstyle'
 
-  task checkstyle(type: Checkstyle) {
-    configFile file("${project.rootDir}/config/checkstyle.xml")
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
+    task checkstyle(type: Checkstyle) {
+        configFile file("${project.rootDir}/config/checkstyle.xml")
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
 
-    classpath = files()
-  }
+        classpath = files()
+    }
 }
 
 task clean(type: Delete) {
-  delete rootProject.buildDir
+    delete rootProject.buildDir
 }
 
 ext {
-  // Sdk and tools
-  minSdkVersion = 16
-  targetSdkVersion = 23
-  compileSdkVersion = 23
-  buildToolsVersion = '23.0.3'
+    // Sdk and tools
+    minSdkVersion = 16
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.3'
 
-  // Guava
-  guavaVersion = '19.0'
+    // Guava
+    guavaVersion = '19.0'
 
-  // App dependencies
-  supportLibraryVersion = '24.0.0'
-  picassoVersion = '2.5.2'
-  butterknifeVersion = '7.0.1'
-  daggerVersion = '2.0.2'
-  annotationVersion = '10.0-b28'
+    // App dependencies
+    supportLibraryVersion = '24.0.0'
+    picassoVersion = '2.5.2'
+    butterknifeVersion = '7.0.1'
+    daggerVersion = '2.0.2'
+    annotationVersion = '10.0-b28'
 
-  junitVersion = '4.12'
-  daggerMockVersion = '0.4'
-  dexmakerVersion = '1.2'
-  runnerVersion = '0.5'
-  rulesVersion = '0.5'
-  mockitoVersion = '1.10.19'
-  espressoVersion = '2.2.2'
+    junitVersion = '4.12'
+    daggerMockVersion = '0.4'
+    dexmakerVersion = '1.2'
+    runnerVersion = '0.5'
+    rulesVersion = '0.5'
+    mockitoVersion = '1.10.19'
+    espressoVersion = '2.2.2'
 }
