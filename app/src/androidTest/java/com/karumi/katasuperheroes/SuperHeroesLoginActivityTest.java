@@ -16,17 +16,12 @@
 
 package com.karumi.katasuperheroes;
 
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.IdlingResource;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.karumi.katasuperheroes.idlingresource.WaitForViewVisibleIdlingResource;
 import com.karumi.katasuperheroes.ui.view.SuperHeroesLoginActivity;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,24 +30,9 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class SuperHeroesLoginActivityTest {
 
-    private IdlingResource idlingResource;
-
     @Rule
     public ActivityTestRule<SuperHeroesLoginActivity> activityRule =
             new ActivityTestRule<>(SuperHeroesLoginActivity.class, true, true);
-
-    @Before
-    public void registerIdlingResource() {
-        idlingResource = new WaitForViewVisibleIdlingResource(
-                activityRule.getActivity(),
-                android.support.design.R.id.snackbar_text);
-        Espresso.registerIdlingResources(idlingResource);
-    }
-
-    @After
-    public void unregisterIdlingResource() {
-        Espresso.unregisterIdlingResources(idlingResource);
-    }
 
     @Test
     public void showsErrorMessageIfWrongCredentials() {

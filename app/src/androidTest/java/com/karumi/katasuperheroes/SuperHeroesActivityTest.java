@@ -73,19 +73,13 @@ public class SuperHeroesActivityTest {
 
     private IdlingResource idlingResource;
 
-    @Rule
-    public DaggerMockRule<MainComponent> daggerRule =
-            new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
-                    new DaggerMockRule.ComponentSetter<MainComponent>() {
-                        @Override
-                        public void setComponent(MainComponent component) {
-                            SuperHeroesApplication app =
-                                    (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation()
-                                            .getTargetContext()
-                                            .getApplicationContext();
-                            app.setComponent(component);
-                        }
-                    });
+     @Rule public DaggerMockRule<MainComponent> daggerRule = new DaggerMockRule<>(MainComponent.class, new MainModule())
+            .set(new DaggerMockRule.ComponentSetter<MainComponent>() {
+                @Override public void setComponent(MainComponent component) {
+                    SuperHeroesApplication app = (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
+                    app.setComponent(component);
+                }
+            });
 
     @Before
     public void registerIntentServiceIdlingResource() {

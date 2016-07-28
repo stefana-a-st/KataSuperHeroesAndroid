@@ -47,7 +47,7 @@ ext {
     annotationVersion = '10.0-b28'
 
     junitVersion = '4.12'
-    daggerMockVersion = '0.4'
+    daggerMockVersion = '0.6.2'
     dexmakerVersion = '1.2'
     runnerVersion = '0.5'
     rulesVersion = '0.5'
