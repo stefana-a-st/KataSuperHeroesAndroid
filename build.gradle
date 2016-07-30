@@ -10,6 +10,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        flatDir {
+            dirs '../aars'
+        }
         maven { url "https://jitpack.io" }
     }
 

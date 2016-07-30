@@ -69,7 +69,9 @@ dependencies {
     exclude module: 'support-v4'
   }
 
-  androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
+  // Cloud testing
+  androidTestCompile (name:'cloudtestingscreenshotter_lib', ext:'aar')
+//  androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
 
   // Resolve conflicts between main and test APK:
   androidTestCompile "com.android.support:design:$rootProject.supportLibraryVersion"
