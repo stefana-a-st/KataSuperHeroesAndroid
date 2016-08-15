@@ -16,8 +16,6 @@
 
 package com.karumi.katasuperheroes;
 
-import com.karumi.katasuperheroes.di.MainComponent;
-import com.karumi.katasuperheroes.di.MainModule;
 import com.karumi.katasuperheroes.matchers.ToolbarMatcher;
 import com.karumi.katasuperheroes.model.SuperHero;
 import com.karumi.katasuperheroes.model.SuperHeroesRepository;
@@ -29,7 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
-import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
@@ -41,8 +39,6 @@ import android.view.View;
 import java.util.Arrays;
 import java.util.Collections;
 
-import it.cosenonjaviste.daggermock.DaggerMockRule;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -53,19 +49,28 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.mockito.Mockito.when;
 
-@RunWith(AndroidJUnit4.class) @LargeTest public class SuperHeroesActivityTest {
+/**
+ * if we get rid of the dagger part and also the mocked list of the repository ->  seeing the progress bar  we are not
+ * yet on the main thread
+ **/
+/** seeing the progress bar **/
+/** we are not yet on the main thread **/
 
-    @Rule public DaggerMockRule<MainComponent> daggerRule =
-            new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
-                    new DaggerMockRule.ComponentSetter<MainComponent>() {
-                        @Override public void setComponent(MainComponent component) {
-                            SuperHeroesApplication app =
-                                    (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation()
-                                            .getTargetContext()
-                                            .getApplicationContext();
-                            app.setComponent(component);
-                        }
-                    });
+/** so we need to use idling processes --> RecyclerViewWithContentIdlingReesource **/
+
+@RunWith(AndroidJUnit4.class) @LargeTest public class SuperHeroesActivityIdlingTest {
+
+    //@Rule public DaggerMockRule<MainComponent> daggerRule =
+    //        new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
+    //                new DaggerMockRule.ComponentSetter<MainComponent>() {
+    //                    @Override public void setComponent(MainComponent component) {
+    //                        SuperHeroesApplication app =
+    //                                (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation()
+    //                                        .getTargetContext()
+    //                                        .getApplicationContext();
+    //                        app.setComponent(component);
+    //                    }
+    //                });
 
     @Rule public IntentsTestRule<SuperHeroesActivity> activityRule =
             new IntentsTestRule<>(SuperHeroesActivity.class, true, false);
@@ -103,56 +108,10 @@ import static org.mockito.Mockito.when;
     }
 
     @Test public void showFirstFiveSuperHeroes() {
-        givenThereAreFiveASuperHeroes();
+        IdlingResource\
 
         startActivity();
 
-        /** this does not work at this point **/
-        //onView(withText("Iron Man")).check(matches(isDisplayed()));
-        //onView(withText("Batman")).check(matches(isDisplayed()));
-        //onView(withText("Hulk")).check(matches(isDisplayed()));
-        //onView(withText("Spiderman")).check(matches(isDisplayed()));
-        //onView(withText("Antman")).check(matches(isDisplayed()));
-        /** let's try then something else **/
-
-        /** this does not work at either **/
-        //onView(allOf(withId(R.id.recycler_view),
-        //        hasDescendant(withId(R.id.tv_super_hero_name)),
-        //        hasDescendant(withText("Iron Man")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view), hasDescendant(withText("Batman")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view), hasDescendant(withText("Hulk")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view), hasDescendant(withText("Spiderman")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view), hasDescendant(withText("Antman")))).check(matches(isDisplayed()));
-        /** let's try going one more level deeper in the hierarchie**/
-
-        /** not working either  **/
-        //onView(allOf(withId(R.id.recycler_view),
-        //        hasDescendant(withId(R.id.tv_super_hero_name)),
-        //        hasDescendant(withText("Iron Man")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view),
-        //        hasDescendant(withId(R.id.tv_super_hero_name)),
-        //        hasDescendant(withText("Batman")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view),
-        //        hasDescendant(withId(R.id.tv_super_hero_name)),
-        //        hasDescendant(withText("Hulk")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view),
-        //        hasDescendant(withId(R.id.tv_super_hero_name)),
-        //        hasDescendant(withText("Spiderman")))).check(matches(isDisplayed()));
-        //onView(allOf(withId(R.id.recycler_view),
-        //        hasDescendant(withId(R.id.tv_super_hero_name)),
-        //        hasDescendant(withText("Antman")))).check(matches(isDisplayed()));
-        /** we need to find a way to scroll - because if it is not visible it cannot be found **/
-
-        /** if we know how many poisitons we have, we can use scrollToPosition ---
-         *  in our case will need to scrollTo and use a matcher**/
-        //onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollTo(withText("Iron Man")));
-        //onView(withText("Iron Man")).check(matches(isDisplayed()));
-        //
-        //onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollTo(withText("Hulk")));
-        //onView(withText("Hulk")).check(matches(isDisplayed()));
-        /** oh no :-( **/
-
-        /** let's just cheat and scroll to position 5 **/
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(4));
         onView(withText("Antman")).check(matches(isDisplayed()));
     }
