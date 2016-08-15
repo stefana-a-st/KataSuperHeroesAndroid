@@ -19,5 +19,4 @@
   <string name="action_login">Login</string>
   <string name="hint_email">Enter password</string>
   <string name="hint_password">Enter Password</string>
-  <string name="wrong_credentials">Wrong credentials</string>
 </resources>

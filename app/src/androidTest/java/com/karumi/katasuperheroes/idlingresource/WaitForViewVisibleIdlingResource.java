@@ -22,35 +22,24 @@ import android.view.View;
 
 public class WaitForViewVisibleIdlingResource implements IdlingResource {
 
-    private final Activity activity;
-    private final int viewId;
-    private ResourceCallback callback;
+  private final Activity activity;
+  private final int viewId;
 
-    public WaitForViewVisibleIdlingResource(Activity activity, int viewId) {
-        this.activity = activity;
-        this.viewId = viewId;
-    }
+  public WaitForViewVisibleIdlingResource(Activity activity, int viewId) {
+    this.activity = activity;
+    this.viewId = viewId;
+  }
 
-    @Override
-    public String getName() {
-        return "WaitForViewVisibleIdlingResource";
-    }
+  @Override public String getName() {
+    return "WaitForViewVisibleIdlingResource";
+  }
 
-    @Override
-    public boolean isIdleNow() {
-        View view = activity.findViewById(viewId);
-        if (view != null) {
-            if (view.isShown()) {
-                return false;
-            }
-        }
-        callback.onTransitionToIdle();
-        return true;
-    }
+  @Override public boolean isIdleNow() {
+    View view = activity.findViewById(viewId);
+    return view.isShown();
+  }
 
-    @Override
-    public void registerIdleTransitionCallback(ResourceCallback callback) {
+  @Override public void registerIdleTransitionCallback(ResourceCallback callback) {
 
-        this.callback = callback;
-    }
+  }
 }

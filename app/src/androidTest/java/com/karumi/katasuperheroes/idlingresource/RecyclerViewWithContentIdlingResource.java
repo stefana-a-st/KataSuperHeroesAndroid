@@ -25,7 +25,6 @@ public class RecyclerViewWithContentIdlingResource implements IdlingResource {
   private final Activity activity;
   private final int recyclerViewId;
   private final int numberOfItems;
-  private ResourceCallback callback;
 
   public RecyclerViewWithContentIdlingResource(Activity activity, int recyclerViewId,
       int numberOfItems) {
@@ -41,11 +40,10 @@ public class RecyclerViewWithContentIdlingResource implements IdlingResource {
   @Override public boolean isIdleNow() {
     RecyclerView recyclerView = (RecyclerView) activity.findViewById(recyclerViewId);
     int numberOfItemsInRecyclerView = recyclerView.getAdapter().getItemCount();
-    callback.onTransitionToIdle();
     return numberOfItemsInRecyclerView == numberOfItems;
   }
 
   @Override public void registerIdleTransitionCallback(ResourceCallback callback) {
-    this.callback = callback;
+
   }
 }
