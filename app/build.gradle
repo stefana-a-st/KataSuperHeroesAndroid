@@ -1,3 +1,13 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+  }
+  dependencies {
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
+  }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -59,7 +69,9 @@ dependencies {
     exclude module: 'support-v4'
   }
 
-  androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
+  // Cloud testing
+  androidTestCompile (name:'cloudtestingscreenshotter_lib', ext:'aar')
+//  androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
 
   // Resolve conflicts between main and test APK:
   androidTestCompile "com.android.support:design:$rootProject.supportLibraryVersion"

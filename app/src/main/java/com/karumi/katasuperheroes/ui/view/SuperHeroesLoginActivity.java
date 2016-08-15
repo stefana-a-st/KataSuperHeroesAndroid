@@ -75,7 +75,7 @@ public class SuperHeroesLoginActivity extends BaseActivity implements SuperHeroL
 
     @Override
     public void showWrongCredentials() {
-        Snackbar.make(loginAction, "Wrong credentials", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(loginAction, getString(R.string.wrong_credentials), Snackbar.LENGTH_INDEFINITE).show();
     }
 
     @Override

@@ -16,56 +16,46 @@
 
 package com.karumi.katasuperheroes;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.karumi.katasuperheroes.di.MainComponent;
-import com.karumi.katasuperheroes.di.MainModule;
-import com.karumi.katasuperheroes.model.SuperHeroesRepository;
 import com.karumi.katasuperheroes.ui.view.SuperHeroesLoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-
-import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class SuperHeroesLoginActivityTest {
 
     @Rule
-    public DaggerMockRule<MainComponent> daggerRule =
-            new DaggerMockRule<>(MainComponent.class, new MainModule()).set(
-                    new DaggerMockRule.ComponentSetter<MainComponent>() {
-                        @Override
-                        public void setComponent(MainComponent component) {
-                            SuperHeroesApplication app =
-                                    (SuperHeroesApplication) InstrumentationRegistry.getInstrumentation()
-                                            .getTargetContext()
-                                            .getApplicationContext();
-                            app.setComponent(component);
-                        }
-                    });
-
-    @Rule
-    public IntentsTestRule<SuperHeroesLoginActivity> activityRule =
-            new IntentsTestRule<>(SuperHeroesLoginActivity.class, true, false);
-
-    @Mock
-    SuperHeroesRepository repository;
+    public ActivityTestRule<SuperHeroesLoginActivity> activityRule =
+            new ActivityTestRule<>(SuperHeroesLoginActivity.class, true, true);
 
     @Test
     public void showsErrorMessageIfWrongCredentials() {
+        LoginRobot login = new LoginRobot();
 
+        LoginResultRobot result = login
+                .username("fail@google.com")
+                .password("notapassword")
+                .login();
+
+        result.isFailure();
     }
 
     @Test
     public void openSuperHeroesIfValidCredentials() {
+        LoginRobot login = new LoginRobot();
 
+        LoginResultRobot result = login
+                .username("ok@google.com")
+                .password("securepassword")
+                .login();
+
+        result.isSuccess();
     }
 
 }

@@ -4,13 +4,15 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.7'
     }
 }
 
 allprojects {
     repositories {
-        mavenCentral()
+        jcenter()
+        flatDir {
+            dirs '../aars'
+        }
         maven { url "https://jitpack.io" }
     }
 
@@ -48,7 +50,7 @@ ext {
     annotationVersion = '10.0-b28'
 
     junitVersion = '4.12'
-    daggerMockVersion = '0.4'
+    daggerMockVersion = '0.6.2'
     dexmakerVersion = '1.2'
     runnerVersion = '0.5'
     rulesVersion = '0.5'
